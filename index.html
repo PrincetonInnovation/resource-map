@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Map tile servers require the site's address to be sent with each request. -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Princeton Region Innovation Resources</title>
+  <meta name="description" content="Coworking, laboratory, prototyping, shared research-core, accelerator, and incubator resources in the Princeton-area innovation ecosystem.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23EE7F2D' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%231D1D1B'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to results</a>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar" aria-label="Directory filters">
+      <div class="sidebar-head">
+        <h2>Directory filters</h2>
+        <button type="button" class="filters-toggle" id="filters-toggle" aria-expanded="true" aria-controls="filters-body">Hide filters</button>
+      </div>
+
+      <form class="filters" id="filters-body" autocomplete="off" onsubmit="return false">
+        <fieldset class="field">
+          <legend class="field-label">Space category</legend>
+          <div class="category-actions">
+            <button type="button" class="link-button" id="cat-all">Select all</button>
+            <button type="button" class="link-button" id="cat-none">Clear</button>
+          </div>
+          <div class="category-list" id="category-list"></div>
+        </fieldset>
+
+        <div class="field">
+          <div class="range-row">
+            <label class="field-label" for="distance">Maximum distance from Princeton</label>
+            <output class="range-value" id="distance-value" for="distance"></output>
+          </div>
+          <input type="range" id="distance" min="0" step="0.5">
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label class="field-label" for="affiliation">Princeton-Affiliated Resource</label>
+            <button type="button" class="help-button" aria-expanded="false" aria-controls="help-affiliation" aria-label="What does this mean?">?</button>
+          </div>
+          <p class="help-text" id="help-affiliation" hidden></p>
+          <select id="affiliation">
+            <option>All</option><option>Yes</option><option>Not specified</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label class="field-label" for="program">NJEDA-Recognized Resource</label>
+            <button type="button" class="help-button" aria-expanded="false" aria-controls="help-njeda" aria-label="What does this mean?">?</button>
+          </div>
+          <p class="help-text" id="help-njeda" hidden></p>
+          <select id="program">
+            <option>All</option><option>Yes</option><option>Not specified</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label class="field-label" for="search">Keyword search</label>
+            <button type="button" class="help-button" aria-expanded="false" aria-controls="help-search" aria-label="How does search work?">?</button>
+          </div>
+          <p class="help-text" id="help-search" hidden></p>
+          <input type="search" id="search" placeholder="e.g., coworking, core facility, makerspace">
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label class="check"><input type="checkbox" id="csit"> Limit to resources accepting CSIT Vouchers</label>
+            <button type="button" class="help-button" aria-expanded="false" aria-controls="help-csit" aria-label="What does this mean?">?</button>
+          </div>
+          <p class="help-text" id="help-csit" hidden></p>
+        </div>
+
+        <div class="field">
+          <label class="check"><input type="checkbox" id="planned" checked> Include planned facilities (not yet open)</label>
+        </div>
+
+        <button type="button" class="reset-button" id="reset">Reset filters</button>
+      </form>
+    </aside>
+
+    <main class="content" id="main">
+      <header class="page-header">
+        <h1>Princeton Region Innovation Resources</h1>
+        <p class="page-caption">Coworking, laboratory, prototyping, shared research-core, accelerator, and incubator resources in the Princeton-area innovation ecosystem.</p>
+      </header>
+
+      <div class="status-message" id="status" role="status" aria-live="polite">Loading resources…</div>
+
+      <div id="app" hidden>
+        <section class="metrics" aria-label="Summary">
+          <div class="metric"><div class="metric-label">Matching resources</div><div class="metric-value" id="m-matching">0</div></div>
+          <div class="metric"><div class="metric-label">Mapped locations</div><div class="metric-value" id="m-mapped">0</div></div>
+          <div class="metric"><div class="metric-label">Within 5 miles</div><div class="metric-value" id="m-five">0</div></div>
+          <div class="metric"><div class="metric-label">Research core facilities</div><div class="metric-value" id="m-core">0</div></div>
+        </section>
+
+        <div class="tabs" role="tablist" aria-label="Views">
+          <button type="button" role="tab" id="tab-map" aria-controls="panel-map" aria-selected="true">Map</button>
+          <button type="button" role="tab" id="tab-directory" aria-controls="panel-directory" aria-selected="false" tabindex="-1">Directory list</button>
+          <button type="button" role="tab" id="tab-detail" aria-controls="panel-detail" aria-selected="false" tabindex="-1">Resource detail</button>
+          <button type="button" role="tab" id="tab-export" aria-controls="panel-export" aria-selected="false" tabindex="-1">Export list</button>
+        </div>
+
+        <section class="panel" id="panel-map" role="tabpanel" aria-labelledby="tab-map">
+          <h2>Innovation resource map</h2>
+          <p class="caption">The map is centered on Princeton University with the orange ring marking a 15-mile radius. Hover over a marker for a summary, or click it (tap on phones) for links and details.</p>
+          <div class="legend" id="legend"></div>
+          <div class="map" id="map" role="region" aria-label="Map of resources"></div>
+          <p class="empty-note" id="map-local-note" hidden>This page was opened directly from a computer, so the background map can't load (map servers need to know which website is asking). It will appear once the page is opened from its web address.</p>
+          <p class="empty-note" id="map-empty" hidden>No mapped facilities match the current filters. The map remains centered on Princeton University and shows the 15-mile radius.</p>
+          <details class="unmapped" id="unmapped" hidden>
+            <summary id="unmapped-summary"></summary>
+            <p>These resources have no single map location (for example, campus-wide services). They still appear in the directory, detail, and export tabs.</p>
+            <div class="table-wrap"><table class="data-table" id="unmapped-table"></table></div>
+          </details>
+        </section>
+
+        <section class="panel" id="panel-directory" role="tabpanel" aria-labelledby="tab-directory" hidden>
+          <h2>Filtered directory</h2>
+          <p class="caption">Click a column heading to sort. Click a name to open its details.</p>
+          <div class="table-wrap"><table class="data-table directory" id="directory-table"></table></div>
+        </section>
+
+        <section class="panel" id="panel-detail" role="tabpanel" aria-labelledby="tab-detail" hidden>
+          <div id="detail-empty" class="empty-note" hidden>No resources match the active filters.</div>
+          <div id="detail-body">
+            <label class="field-label dark" for="detail-select">Select a resource</label>
+            <select id="detail-select" class="detail-select"></select>
+            <div class="detail-grid">
+              <div class="detail-left" id="detail-left"></div>
+              <div class="detail-right" id="detail-right"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-export" role="tabpanel" aria-labelledby="tab-export" hidden>
+          <h2>Download filtered data</h2>
+          <button type="button" class="primary-button" id="download">Download filtered CSV</button>
+          <details class="unmapped">
+            <summary>Show filtered raw data</summary>
+            <div class="table-wrap"><table class="data-table" id="export-table"></table></div>
+          </details>
+        </section>
+      </div>
+
+      <footer class="site-footer" aria-label="Credits">
+        <h2 class="credits-heading">Credits</h2>
+        <ul class="credits" id="credits">
+          <li>Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>, available under the Open Database License.</li>
+          <li>Map display: <a href="https://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a> (BSD 2-Clause License).</li>
+        </ul>
+      </footer>
+    </main>
+  </div>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
