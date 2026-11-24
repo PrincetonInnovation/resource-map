@@ -67,7 +67,7 @@
   };
 
   var DEFAULT_MARKER_COLOR = [100, 100, 100];
-  var PRINCETON_ORANGE = "#EE7F2D";
+  var PRINCETON_ORANGE = "#E77500";
 
   var CATEGORY_COLORS = {
     "Coworking": [0, 119, 139],
@@ -75,7 +75,7 @@
     "Prototyping": [126, 84, 164],
     "Prototyping (Accelerator-members Only)": [214, 51, 132],
     "Coworking (Accelerator-members Only)": [190, 30, 45],
-    "Research Core Facility": [238, 127, 45],
+    "Research Core Facility": [231, 117, 0],
     "Innovation Center / Research Park": [255, 215, 0],
     "Incubator / Accelerator": [128, 85, 44]
   };
@@ -605,7 +605,7 @@
     }).addTo(map);
 
     L.circleMarker(center, {
-      radius: 8, color: "#ffffff", weight: 2, fillColor: "#1D1D1B", fillOpacity: 1, interactive: false
+      radius: 8, color: "#ffffff", weight: 2, fillColor: "#001E68", fillOpacity: 1, interactive: false
     }).addTo(map);
 
     // Bounds of the ring, computed directly so they don't depend on map state.

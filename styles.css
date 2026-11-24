@@ -1,81 +1,198 @@
 /* Princeton Region Innovation Resources: styles.
-   Colors match the original Streamlit app's Princeton-inspired palette. */
+   Colors follow the Office of Innovation website palette; fonts follow the
+   Office of Innovation Brand Guidelines. */
+
+/* ----- Fonts -----
+   Office of Innovation brand typography (see the Brand Guidelines):
+   - Headlines: Caslon Doric Condensed Bold. Commercial font: it needs a web
+     license before it can go on a public site, so Oswald SemiBold stands in
+     until then (see the optional block below).
+   - Subheads: Oswald Light.
+   - Body text: FranklinGothic URW in the guidelines; Libre Franklin is the
+     free equivalent used here.
+   - Captions: Libre Franklin Italic.
+   Libre Franklin and Oswald are free under the SIL Open Font License
+   (license files in the fonts folder). */
+
+@font-face {
+  font-family: "Libre Franklin";
+  src: url("fonts/libre-franklin-latin-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Libre Franklin";
+  src: url("fonts/libre-franklin-latin-ext-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Libre Franklin";
+  src: url("fonts/libre-franklin-latin-wght-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Libre Franklin";
+  src: url("fonts/libre-franklin-latin-ext-wght-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Oswald";
+  src: url("fonts/oswald-latin-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Oswald";
+  src: url("fonts/oswald-latin-ext-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* OPTIONAL: Caslon Doric Condensed for headlines.
+   Only after confirming Princeton's license covers web use:
+   1. Put the web font file in the fonts folder as caslon-doric-condensed-bold.woff2
+      (or an .otf file; then change the file name and format below to match).
+   2. Delete the two marker lines just below and at the end of this block:
+      the one reading CASLON HEADLINES START and the one reading CASLON HEADLINES END. */
+/* CASLON HEADLINES START
+@font-face {
+  font-family: "Caslon Doric Condensed Web";
+  src: url("fonts/caslon-doric-condensed-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+:root:root {
+  --font-headline: "Caslon Doric Condensed Web", "Oswald", "Arial Narrow", sans-serif;
+  --headline-weight: 700;
+}
+CASLON HEADLINES END */
+
 
 :root {
-  --princeton-orange: #EE7F2D;
-  --princeton-orange-dark: #C95B12;
-  --princeton-orange-light: #FFF0E6;
-  --sidebar: #343434;
-  --sidebar-dark: #262626;
-  --ink: #1D1D1B;
-  --dark-gray: #3E3E3E;
-  --medium-gray: #666666;
-  --light-gray: #E6E6E6;
-  --off-white: #FCFCFB;
+  /* Office of Innovation website palette */
+  --navy: #001E68;          /* links, card titles, buttons */
+  --royal: #1F48CD;         /* active menu underline */
+  --orange: #E77500;        /* accents, heading bars, card borders */
+  --sky: #C0DAE9;           /* page title band */
+  --blush: #FFF4F4;         /* section backgrounds */
+  --ink: #212529;           /* body text and headings */
   --white: #FFFFFF;
-  --warning-bg: #FFF6DB;
+
+  /* Supporting neutrals */
+  --dark-gray: #3F4346;
+  --medium-gray: #5A5D60;
+  --line: #E2E2E2;
+  --table-head: #F6F6F6;
+  --warning-bg: #FFF4D9;
   --warning-ink: #6B4E00;
-  --font: "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --font: "Libre Franklin", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-headline: "Oswald", "Arial Narrow", sans-serif;
+  --headline-weight: 600;
+  --font-subhead: "Oswald", "Arial Narrow", sans-serif;
 }
 
 * { box-sizing: border-box; }
 
 html, body {
   margin: 0;
-  background: var(--off-white);
+  background: var(--white);
   color: var(--ink);
   font-family: var(--font);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
-a { color: var(--princeton-orange-dark); font-weight: 600; }
-a:hover { color: var(--ink); }
+/* Headlines: tracking 15 (0.015em), tight leading */
+h1, h2, h3 {
+  font-family: var(--font-headline); font-weight: var(--headline-weight);
+  letter-spacing: 0.015em; line-height: 1.12; color: var(--ink);
+}
 
-:focus-visible { outline: 3px solid var(--princeton-orange); outline-offset: 2px; }
+/* Captions: italic, tracking 5 (0.005em) */
+.caption, .legend-note, .verified, .tt-hint, .credits-note {
+  font-style: italic; letter-spacing: 0.005em;
+}
+
+a { color: var(--navy); font-weight: 600; }
+a:hover { color: var(--royal); }
+
+:focus-visible { outline: 3px solid var(--royal); outline-offset: 2px; }
 
 .skip-link {
   position: absolute; left: -9999px; top: 0;
-  background: var(--ink); color: var(--white); padding: 0.5rem 1rem; z-index: 2000;
+  background: var(--navy); color: var(--white); padding: 0.5rem 1rem; z-index: 2000;
 }
 .skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+/* ----- Header and title band ----- */
+
+.site-header { background: var(--white); border-bottom: 1px solid var(--line); }
+/* Clear space: at least the height of the logo's "O" (about 18px at this size) */
+.site-header-inner { padding: 1.25rem 2.5rem; display: flex; align-items: center; }
+.brand-link { display: inline-flex; line-height: 0; }
+.brand-logo { height: 46px; width: auto; max-width: 100%; }
+
+.hero { background: var(--sky); }
+.hero-inner { padding: 1.75rem 2.5rem 1.6rem; }
+.hero h1 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  line-height: 1.05;
+}
+.hero-caption { margin: 0; color: var(--ink); font-size: 1rem; max-width: 60rem; }
+.caption { color: var(--medium-gray); font-size: 0.92rem; margin: 0 0 1.5rem; }
 
 /* ----- Layout ----- */
 
 .layout {
   display: grid;
   grid-template-columns: 300px minmax(0, 1fr);
-  min-height: 100vh;
+  min-height: 70vh;
 }
 
 .sidebar {
-  background: var(--sidebar);
-  border-right: 1px solid var(--sidebar-dark);
-  color: var(--white);
-  padding: 2rem 1.1rem 2rem;
+  background: var(--blush);
+  border-right: 1px solid #F3DCDC;
+  color: var(--ink);
+  padding: 2rem 1.25rem 2rem;
 }
 
 .sidebar-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-.sidebar h2 { margin: 0 0 1rem; font-size: 1.35rem; font-weight: 700; color: var(--white); }
+.sidebar h2 {
+  margin: 0 0 1.25rem; font-size: 1.75rem;
+}
 .filters-toggle { display: none; }
 
-.content { padding: 2.5rem 2.5rem 3rem; min-width: 0; }
+.content { padding: 2rem 2.5rem 3rem; min-width: 0; }
 
-.page-header h1 {
-  margin: 0 0 0.5rem;
-  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+/* Short orange bar under section headings, as on the Office of Innovation site */
+.accent-heading::after,
+.panel > h2::after,
+.sidebar h2::after {
+  content: ""; display: block; width: 50px; height: 3px; margin-top: 0.35rem; background: var(--orange);
 }
-.page-caption, .caption { color: var(--medium-gray); font-size: 0.92rem; margin: 0 0 1.5rem; }
 
 /* ----- Filters ----- */
 
 .filters { display: flex; flex-direction: column; gap: 1.15rem; }
 .field { border: 0; margin: 0; padding: 0; min-width: 0; }
-.field-label { display: block; font-size: 0.92rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--white); padding: 0; }
-.field-label.dark { color: var(--ink); }
+.field-label { display: block; font-size: 0.92rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--ink); padding: 0; }
 .label-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
 .label-row .field-label, .label-row .check { flex: 1; }
 
@@ -85,195 +202,219 @@ a:hover { color: var(--ink); }
   font: inherit;
   font-size: 0.95rem;
   padding: 0.5rem 0.6rem;
-  border-radius: 0.45rem;
-  border: 1px solid var(--white);
+  border-radius: 0.25rem;
+  border: 1px solid #B9BCC0;
   background: var(--white);
   color: var(--ink);
 }
 
 .category-actions { display: flex; gap: 1rem; margin-bottom: 0.35rem; }
 .link-button {
-  background: none; border: 0; padding: 0; font: inherit; font-size: 0.85rem;
-  color: var(--princeton-orange); text-decoration: underline; cursor: pointer;
+  background: none; border: 0; padding: 0; font: inherit; font-size: 0.85rem; font-weight: 600;
+  color: var(--navy); text-decoration: underline; cursor: pointer;
 }
+.link-button:hover { color: var(--royal); }
 .category-list {
   display: flex; flex-direction: column; gap: 0.3rem;
-  background: var(--sidebar-dark); border-radius: 0.45rem; padding: 0.6rem 0.65rem;
+  background: var(--white); border: 1px solid var(--orange); border-radius: 0.25rem; padding: 0.6rem 0.65rem;
 }
-.check { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.92rem; cursor: pointer; color: var(--white); }
-.check input { margin-top: 0.25rem; accent-color: var(--princeton-orange); width: 1rem; height: 1rem; flex: none; }
+.check { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.92rem; cursor: pointer; color: var(--ink); }
+.check input { margin-top: 0.25rem; accent-color: var(--navy); width: 1rem; height: 1rem; flex: none; }
 .swatch { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%; margin-top: 0.4rem; flex: none; }
 
 .range-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; column-gap: 0.75rem; }
-.range-value { font-size: 0.9rem; color: var(--white); white-space: nowrap; margin-left: auto; }
-input[type="range"] { width: 100%; accent-color: var(--princeton-orange); }
+.range-value { font-size: 0.9rem; font-weight: 600; color: var(--navy); white-space: nowrap; margin-left: auto; }
+input[type="range"] { width: 100%; accent-color: var(--orange); }
 
 .help-button {
   flex: none;
   width: 1.35rem; height: 1.35rem; border-radius: 50%;
-  border: 1px solid #9a9a9a; background: transparent; color: #d0d0d0;
-  font: inherit; font-size: 0.8rem; line-height: 1; cursor: pointer;
+  border: 1px solid var(--navy); background: var(--white); color: var(--navy);
+  font: inherit; font-size: 0.8rem; font-weight: 700; line-height: 1; cursor: pointer;
 }
-.help-button[aria-expanded="true"] { background: var(--princeton-orange); color: var(--ink); border-color: var(--princeton-orange); }
+.help-button[aria-expanded="true"] { background: var(--navy); color: var(--white); }
 .help-text {
-  margin: 0.1rem 0 0.5rem; padding: 0.55rem 0.7rem; border-radius: 0.45rem;
-  background: var(--sidebar-dark); color: var(--white); font-size: 0.85rem; line-height: 1.45;
+  margin: 0.1rem 0 0.5rem; padding: 0.55rem 0.7rem; border-radius: 0.25rem;
+  background: var(--white); border-left: 3px solid var(--orange); color: var(--ink); font-size: 0.85rem; line-height: 1.45;
 }
 
 .reset-button {
-  font: inherit; font-size: 0.9rem; font-weight: 600; padding: 0.5rem; border-radius: 0.45rem;
-  background: transparent; color: var(--white); border: 1px solid #8a8a8a; cursor: pointer;
+  font: inherit; font-size: 0.9rem; font-weight: 700; padding: 0.5rem; border-radius: 0.25rem;
+  background: var(--white); color: var(--navy); border: 1px solid var(--navy); cursor: pointer;
 }
-.reset-button:hover { border-color: var(--princeton-orange); color: var(--princeton-orange); }
+.reset-button:hover { background: var(--navy); color: var(--white); }
 
 /* ----- Status ----- */
 
 .status-message {
-  padding: 1rem 1.2rem; border-radius: 0.5rem; background: var(--white);
-  border: 1px solid var(--light-gray); color: var(--dark-gray);
+  padding: 1rem 1.2rem; border-radius: 0.25rem; background: var(--white);
+  border: 1px solid var(--line); color: var(--dark-gray);
 }
-.status-message.error { border-color: #d9534f; background: #fff3f2; color: #8a1f1b; }
+.status-message.error { border-color: #B42318; background: #FEF3F2; color: #7A1A12; }
 .status-message[hidden] { display: none; }
 
-/* ----- Metrics ----- */
+/* ----- Metrics (styled like the site's orange-bordered cards) ----- */
 
-.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.75rem; }
 .metric {
-  background: var(--white); border: 1px solid var(--light-gray);
-  border-top: 4px solid var(--princeton-orange); border-radius: 3px; padding: 0.8rem 1rem;
+  background: var(--white); border: 1px solid var(--orange); border-radius: 0; padding: 0.9rem 1.1rem;
 }
-.metric-label { color: var(--medium-gray); font-weight: 600; font-size: 0.9rem; }
-.metric-value { font-size: 2.1rem; line-height: 1.2; color: var(--ink); font-variant-numeric: tabular-nums; }
+.metric-label { color: var(--ink); font-weight: 600; font-size: 0.92rem; }
+.metric-value {
+  font-family: var(--font-headline); font-weight: var(--headline-weight);
+  font-size: 2.5rem; line-height: 1.1; letter-spacing: 0.015em; color: var(--navy); font-variant-numeric: tabular-nums;
+}
 
-/* ----- Tabs ----- */
+/* ----- Tabs (styled like the site's main menu) ----- */
 
-.tabs { display: flex; gap: 1.5rem; border-bottom: 1px solid var(--light-gray); margin-bottom: 1.5rem; overflow-x: auto; }
+.tabs { display: flex; gap: 1.75rem; border-bottom: 1px solid var(--line); margin-bottom: 1.75rem; overflow-x: auto; }
 .tabs button {
-  background: transparent; border: 0; border-bottom: 3px solid transparent;
-  padding: 0.55rem 0.05rem 0.6rem; font: inherit; font-size: 0.95rem; font-weight: 600;
-  color: var(--dark-gray); cursor: pointer; white-space: nowrap;
+  background: transparent; border: 0; border-bottom: 5px solid transparent;
+  padding: 0.55rem 0.15rem 0.5rem; font: inherit; font-size: 1rem; font-weight: 700;
+  color: #000000; cursor: pointer; white-space: nowrap;
 }
-.tabs button:hover { color: var(--princeton-orange-dark); }
-.tabs button[aria-selected="true"] { color: var(--princeton-orange-dark); border-bottom-color: var(--princeton-orange); font-weight: 700; }
+.tabs button:hover { color: var(--royal); }
+.tabs button[aria-selected="true"] { color: #000000; border-bottom-color: var(--royal); }
 
-.panel h2 { font-size: 1.6rem; font-weight: 650; margin: 0 0 0.4rem; }
+.panel h2 { font-size: 2.1rem; margin: 0 0 0.75rem; }
 
 /* ----- Map ----- */
 
-.legend { display: flex; flex-wrap: wrap; row-gap: 0.3rem; column-gap: 1.4rem; margin-bottom: 0.4rem; color: var(--dark-gray); }
+.legend { display: flex; flex-wrap: wrap; row-gap: 0.3rem; column-gap: 1.4rem; margin-bottom: 0.4rem; color: var(--ink); }
 .legend-item { display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
 .legend-item .swatch { margin-top: 0; width: 0.8rem; height: 0.8rem; }
 .legend-note { font-size: 0.85rem; color: var(--medium-gray); margin: 0 0 0.75rem; }
 
 .map {
   height: 650px; width: 100%;
-  border: 1px solid var(--light-gray); border-radius: 3px; background: #f2f2f0;
+  border: 1px solid var(--line); background: #F2F2F0;
 }
 .leaflet-container { font-family: var(--font); }
-/* No-key fallback: soften OpenStreetMap's colors so the markers stand out,
-   close to the light gray CARTO style. */
+.leaflet-container a { color: var(--navy); }
+/* No-key fallback: soften OpenStreetMap's colors so the markers stand out. */
 .basemap-grayscale { filter: grayscale(1) contrast(0.85) brightness(1.08); }
 
 .leaflet-tooltip { padding: 0; }
 .marker-tooltip { width: max-content; max-width: 320px; white-space: normal; padding: 10px; font-size: 13px; color: var(--ink); line-height: 1.45; }
-.marker-tooltip .tt-title, .popup-title { font-weight: 700; margin-bottom: 0.2rem; }
+.marker-tooltip .tt-title, .popup-title { font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
 .marker-tooltip ul, .popup-list { margin: 0.35rem 0 0; padding-left: 1.1rem; }
 .tt-hint { color: var(--medium-gray); font-size: 12px; }
 .tt-address { font-weight: 600; margin-top: 0.5rem; }
 path.leaflet-interactive:focus { outline: none; }
 .popup-body { font-size: 13px; line-height: 1.45; max-width: 300px; }
 .popup-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
-.popup-actions a, .popup-actions button, .popup-list button {
+.leaflet-container .popup-actions a, .popup-actions button {
   font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
-  background: var(--princeton-orange); color: var(--ink); border: 0; border-radius: 0.35rem;
-  padding: 0.3rem 0.6rem; text-decoration: none;
+  background: var(--navy); color: var(--white); border: 0; border-radius: 0.25rem;
+  padding: 0.3rem 0.65rem; text-decoration: none;
 }
+.leaflet-container .popup-actions a:hover, .popup-actions button:hover { background: var(--royal); color: var(--white); }
 .popup-list { list-style: none; padding-left: 0; }
 .popup-list li { margin: 0.15rem 0; }
-.popup-list button { display: block; background: none; color: var(--princeton-orange-dark); padding: 0; text-align: left; text-decoration: underline; font-weight: 600; }
-.popup-actions a:hover, .popup-actions button:hover { background: var(--princeton-orange-dark); color: var(--white); }
+.popup-list button {
+  display: block; font: inherit; background: none; border: 0; color: var(--navy); padding: 0;
+  text-align: left; text-decoration: underline; font-weight: 600; cursor: pointer;
+}
+.popup-list button:hover { color: var(--royal); }
 
-.empty-note { padding: 0.9rem 1.1rem; border-radius: 0.5rem; background: #eef4fb; color: #1d4f80; margin: 1rem 0; }
+.empty-note { padding: 0.9rem 1.1rem; background: #EAF3F8; border-left: 4px solid var(--sky); color: var(--navy); margin: 1rem 0; }
 
 details.unmapped {
-  margin-top: 1rem; background: var(--white); border: 1px solid var(--light-gray); border-radius: 3px; padding: 0.6rem 1rem;
+  margin-top: 1rem; background: var(--white); border: 1px solid var(--line); padding: 0.6rem 1rem;
 }
-details.unmapped summary { cursor: pointer; font-weight: 600; }
+details.unmapped summary { cursor: pointer; font-weight: 600; color: var(--navy); }
 
 /* ----- Tables ----- */
 
-.table-wrap { overflow-x: auto; background: var(--white); border: 1px solid var(--light-gray); border-radius: 3px; }
+.table-wrap { overflow-x: auto; background: var(--white); border: 1px solid var(--line); }
 .data-table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
-.data-table th, .data-table td { text-align: left; vertical-align: top; padding: 0.5rem 0.65rem; border-bottom: 1px solid var(--light-gray); }
-.data-table th { background: #f6f6f4; color: var(--dark-gray); font-weight: 650; white-space: nowrap; position: sticky; top: 0; }
+.data-table th, .data-table td { text-align: left; vertical-align: top; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--line); }
+.data-table th { background: var(--table-head); color: var(--ink); font-weight: 700; white-space: nowrap; position: sticky; top: 0; border-bottom: 2px solid var(--orange); }
 .data-table th button {
   background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer;
   display: inline-flex; align-items: center; gap: 0.25rem;
 }
-.data-table th[aria-sort="ascending"] button::after { content: "▲"; font-size: 0.65rem; }
-.data-table th[aria-sort="descending"] button::after { content: "▼"; font-size: 0.65rem; }
+.data-table th button:hover { color: var(--royal); }
+.data-table th[aria-sort="ascending"] button::after { content: "▲"; font-size: 0.65rem; color: var(--orange); }
+.data-table th[aria-sort="descending"] button::after { content: "▼"; font-size: 0.65rem; color: var(--orange); }
+.data-table tbody tr:nth-child(even) { background: #FFFAFA; }
 .data-table td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .data-table .clamp {
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   min-width: 14rem; max-width: 26rem;
 }
 .data-table .name-button {
-  background: none; border: 0; padding: 0; font: inherit; font-weight: 600; text-align: left;
-  color: var(--princeton-orange-dark); text-decoration: underline; cursor: pointer; min-width: 10rem;
+  background: none; border: 0; padding: 0; font: inherit; font-weight: 700; text-align: left;
+  color: var(--navy); text-decoration: underline; cursor: pointer; min-width: 10rem;
 }
+.data-table .name-button:hover { color: var(--royal); }
 .directory td:nth-child(1) { min-width: 8rem; }
 .directory td:nth-child(4) { min-width: 12rem; }
 
 /* ----- Detail ----- */
 
+.field-label.dark { color: var(--ink); }
 .detail-select {
-  width: 100%; font: inherit; font-size: 0.95rem; padding: 0.55rem 0.7rem; margin-bottom: 1.5rem;
-  border-radius: 0.45rem; border: 1px solid #262730; background: #262730; color: var(--white);
+  width: 100%; font: inherit; font-size: 0.95rem; padding: 0.55rem 0.7rem; margin-bottom: 1.75rem;
+  border-radius: 0.25rem; border: 1px solid var(--navy); background: var(--white); color: var(--ink);
 }
-.detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 2rem; }
-.detail-left h2 { font-size: 1.55rem; margin: 0 0 1rem; line-height: 1.2; }
-.detail-left p, .detail-right p { margin: 0 0 0.9rem; color: var(--dark-gray); }
-.detail-right h3 { font-size: 1.45rem; font-weight: 650; margin: 0 0 0.6rem; }
-.detail-right h3:not(:first-child) { margin-top: 1.4rem; }
+.detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 2.5rem; }
+.detail-left {
+  background: var(--blush); padding: 1.25rem 1.25rem 0.5rem; align-self: start;
+}
+.detail-left h2 { font-size: 2rem; margin: 0 0 1rem; color: var(--navy); }
+.detail-left p, .detail-right p { margin: 0 0 0.9rem; color: var(--ink); }
+/* Subheads: Oswald Light in Princeton orange, tracking 5 (0.005em).
+   Orange text only meets contrast rules at this large size on white. */
+.detail-right h3 {
+  font-family: var(--font-subhead); font-weight: 300; font-size: 1.75rem;
+  letter-spacing: 0.005em; line-height: 1.25; color: var(--orange); margin: 0 0 0.5rem;
+}
+.detail-right h3:not(:first-child) { margin-top: 1.6rem; }
 .preserve-lines { white-space: pre-line; }
 .verified { font-size: 0.85rem; color: var(--medium-gray); }
-.warning { background: var(--warning-bg); color: var(--warning-ink); padding: 0.7rem 0.9rem; border-radius: 0.45rem; }
+.warning { background: var(--warning-bg); color: var(--warning-ink); padding: 0.7rem 0.9rem; border-left: 4px solid var(--orange); }
 
 .action-button, .primary-button {
   display: block; width: 100%; margin: 0.75rem 0; padding: 0.8rem 1rem;
-  background: var(--princeton-orange); border: 1px solid var(--princeton-orange); border-radius: 0.5rem;
-  color: var(--ink); text-align: center; text-decoration: none; font: inherit; font-weight: 700; cursor: pointer;
+  background: var(--navy); border: 1px solid var(--navy); border-radius: 0.25rem;
+  color: var(--white); text-align: center; text-decoration: none; font: inherit; font-weight: 700; cursor: pointer;
 }
 .action-button:hover, .action-button:focus-visible,
 .primary-button:hover, .primary-button:focus-visible {
-  background: var(--princeton-orange-dark); border-color: var(--princeton-orange-dark); color: var(--white);
+  background: var(--royal); border-color: var(--royal); color: var(--white);
 }
+.primary-button { max-width: 22rem; }
 
 /* ----- Footer credits ----- */
 
 .site-footer {
-  margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--light-gray);
+  margin-top: 3rem; padding-top: 1rem; border-top: 3px solid var(--orange);
   color: var(--medium-gray); font-size: 0.85rem;
 }
-.credits-heading { font-size: 0.9rem; font-weight: 700; color: var(--dark-gray); margin: 0 0 0.35rem; }
+.credits-heading { font-family: var(--font); font-size: 0.9rem; font-weight: 700; color: var(--ink); margin: 0 0 0.35rem; }
 .credits { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
 .credits a { font-weight: 600; }
 
 /* ----- Small screens ----- */
 
 @media (max-width: 900px) {
+  .site-header-inner { padding: 1rem 1rem; }
+  .brand-logo { height: 36px; }
+  .hero-inner { padding: 1.25rem 1rem; }
   .layout { grid-template-columns: 1fr; }
-  .sidebar { padding: 1rem 1rem 1.25rem; border-right: 0; }
-  .sidebar h2 { margin: 0; font-size: 1.15rem; }
+  .sidebar { padding: 1rem 1rem 1.25rem; border-right: 0; border-bottom: 1px solid #F3DCDC; }
+  .sidebar h2 { margin: 0; font-size: 1.35rem; }
+  .sidebar h2::after { display: none; }
   .filters-toggle {
-    display: inline-block; font: inherit; font-size: 0.9rem; font-weight: 600;
-    background: var(--princeton-orange); color: var(--ink); border: 0; border-radius: 0.4rem; padding: 0.35rem 0.75rem; cursor: pointer;
+    display: inline-block; font: inherit; font-size: 0.9rem; font-weight: 700;
+    background: var(--navy); color: var(--white); border: 0; border-radius: 0.25rem; padding: 0.4rem 0.8rem; cursor: pointer;
   }
   .filters { margin-top: 1rem; }
   .filters.collapsed { display: none; }
   .content { padding: 1.5rem 1rem 2.5rem; }
   .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
-  .metric-value { font-size: 1.7rem; }
+  .metric-value { font-size: 1.9rem; }
   .map { height: 460px; }
-  .detail-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+  .detail-grid { grid-template-columns: 1fr; gap: 1rem; }
 }
